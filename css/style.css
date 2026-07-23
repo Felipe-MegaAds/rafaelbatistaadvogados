@@ -1,0 +1,908 @@
+/* ==========================================================================
+   CONFIGURAÇÕES GLOBAIS E VARIÁVEIS DO DESIGN SYSTEM
+   ========================================================================== */
+
+/* Importação das fontes do Google Fonts: Montserrat (títulos) e Poppins (corpo) */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* Paleta de Cores Premium (Azul Escuro profundo e Dourado Nobre) */
+  --color-primary: #0A141D;       /* Azul petróleo quase preto (fundo e elementos de alta prioridade) */
+  --color-primary-light: #15222E; /* Azul escuro intermediário (cards e fundos secundários) */
+  --color-accent: #C5A880;        /* Dourado champanhe (destaques, botões e bordas) */
+  --color-accent-hover: #AA8E67;  /* Dourado em estado hover (um tom mais escuro e fechado) */
+  --color-bg-light: #F4F6F8;      /* Cinza muito claro para contraste de seções */
+  --color-bg-white: #FFFFFF;      /* Branco puro */
+  --color-text-dark: #1E252B;     /* Cinza escuro para máxima legibilidade do texto no fundo claro */
+  --color-text-muted: #5C6770;    /* Texto secundário/suave */
+  --color-text-light: #F4F6F8;    /* Texto claro para fundos escuros */
+  
+  /* Definição de Tipografia */
+  --font-title: 'Montserrat', sans-serif;
+  --font-body: 'Poppins', sans-serif;
+  
+  /* Configuração de transições globais para animações suaves */
+  --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  --shadow-premium: 0 10px 30px rgba(0, 0, 0, 0.05);
+  --shadow-premium-hover: 0 20px 40px rgba(197, 168, 128, 0.15);
+}
+
+/* Reset básico para padronização de box-sizing e margens em todos os navegadores */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth; /* Rolagem suave nativa para links âncora */
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-text-dark);
+  background-color: var(--color-bg-white);
+  line-height: 1.6;
+  overflow-x: hidden; /* Evita rolagem horizontal indesejada em telas menores */
+}
+
+/* Títulos globais e padronização */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-title);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: var(--transition-smooth);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ==========================================================================
+   COMPONENTES REUTILIZÁVEIS E UTILITÁRIOS
+   ========================================================================== */
+
+/* Alinhamento de containers */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Estilo padrão de seções */
+.section {
+  padding: 100px 0;
+}
+
+.section-bg-light {
+  background-color: var(--color-bg-light);
+}
+
+/* Título de seção com linha decorativa abaixo */
+.section-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.section-header h2 {
+  font-size: 2.2rem;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 15px;
+}
+
+.section-header h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background-color: var(--color-accent);
+}
+
+/* Botões premium */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 28px;
+  font-family: var(--font-title);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-radius: 4px;
+  transition: var(--transition-smooth);
+  cursor: pointer;
+  border: none;
+}
+
+.btn-primary {
+  background-color: var(--color-accent);
+  color: var(--color-primary);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-accent-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(197, 168, 128, 0.3);
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--color-accent);
+  border: 2px solid var(--color-accent);
+}
+
+.btn-outline:hover {
+  background-color: var(--color-accent);
+  color: var(--color-primary);
+  transform: translateY(-2px);
+}
+
+/* Ícones do WhatsApp nos botões com proporção 1:1 e alinhamento centralizado preciso */
+.btn svg {
+  margin-right: 8px;
+  fill: currentColor;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;          /* Impede que o ícone seja comprimido em telas muito estreitas */
+  display: inline-block;
+  vertical-align: middle;   /* Alinha verticalmente com o centro da linha de texto do botão */
+}
+
+/* ==========================================================================
+   CABEÇALHO (HEADER) E NAVEGAÇÃO
+   ========================================================================== */
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  transition: var(--transition-smooth);
+  padding: 20px 0;
+}
+
+/* Efeito ativado no Javascript ao descer a página (Header fixo com blur) */
+.header.scrolled {
+  background-color: rgba(10, 20, 29, 0.95);
+  backdrop-filter: blur(10px);
+  padding: 12px 0;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+  border-bottom: 1px solid rgba(197, 168, 128, 0.2);
+}
+
+.header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Logo da marca */
+.logo img {
+  height: 45px;
+  width: auto;
+  transition: var(--transition-smooth);
+}
+
+.header.scrolled .logo img {
+  height: 38px;
+}
+
+/* Navegação Desktop */
+.nav-menu {
+  display: flex;
+  list-style: none;
+  align-items: center;
+}
+
+.nav-item {
+  margin: 0 15px;
+}
+
+.nav-link {
+  font-family: var(--font-title);
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: var(--color-text-light);
+  letter-spacing: 1px;
+}
+
+.nav-link:hover {
+  color: var(--color-accent);
+}
+
+.nav-cta {
+  margin-left: 20px;
+}
+
+.nav-cta .btn {
+  padding: 10px 20px;
+  font-size: 0.8rem;
+}
+
+/* Botão do Menu Mobile (Hamburger) */
+.hamburger {
+  display: none;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+}
+
+.hamburger span {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background-color: var(--color-text-light);
+  margin: 5px 0;
+  transition: var(--transition-smooth);
+}
+
+/* ==========================================================================
+   SEÇÃO HERO (INTRODUÇÃO)
+   ========================================================================== */
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: url('../assets/background.jpg') no-repeat center center/cover;
+  padding: 120px 0 80px 0;
+}
+
+/* Máscara de sombreamento sobre a imagem para dar excelente legibilidade ao texto */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(10, 20, 29, 0.93) 0%, rgba(21, 34, 46, 0.88) 100%);
+  z-index: 1;
+}
+
+.hero .container {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+/* Detalhe sutil dourado acima do título */
+.hero-tagline {
+  font-family: var(--font-title);
+  color: var(--color-accent);
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+}
+
+.hero h1 {
+  font-size: 3.2rem;
+  color: var(--color-text-light);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  max-width: 900px;
+  margin: 0 auto 20px auto;
+  line-height: 1.15;
+}
+
+.hero-subtitle {
+  font-size: 1.25rem;
+  color: #C0C8CF;
+  max-width: 700px;
+  margin: 0 auto 40px auto;
+  font-weight: 300;
+}
+
+.hero-cta {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.hero-help-text {
+  display: block;
+  margin-top: 15px;
+  font-size: 0.85rem;
+  color: var(--color-accent);
+  font-style: italic;
+}
+
+/* ==========================================================================
+   SEÇÃO ESPECIALIDADES (ÁREAS DE ATUAÇÃO)
+   ========================================================================== */
+
+.especialidades-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  margin-bottom: 50px;
+}
+
+/* Card das áreas de atuação */
+.especialidade-card {
+  background-color: var(--color-bg-white);
+  padding: 40px 30px;
+  border-radius: 4px;
+  border-top: 4px solid var(--color-primary);
+  box-shadow: var(--shadow-premium);
+  transition: var(--transition-smooth);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.especialidade-card:hover {
+  transform: translateY(-8px);
+  border-top-color: var(--color-accent);
+  box-shadow: var(--shadow-premium-hover);
+}
+
+/* Ícones vetoriais estilizados para cada card */
+.especialidade-icon {
+  margin-bottom: 25px;
+  color: var(--color-accent);
+}
+
+.especialidade-icon svg {
+  width: 45px;
+  height: 45px;
+  fill: currentColor;
+}
+
+.especialidade-card h3 {
+  font-size: 1.25rem;
+  color: var(--color-primary);
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+.especialidade-card p {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  flex-grow: 1;
+}
+
+/* Centralização do botão inferior da seção */
+.especialidades-footer {
+  text-align: center;
+  margin-top: 50px;
+}
+
+/* ==========================================================================
+   SEÇÃO SOBRE NÓS
+   ========================================================================== */
+
+.sobre-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+/* Moldura e efeitos na foto do advogado */
+.sobre-img-wrapper {
+  position: relative;
+  display: inline-block;
+  margin: 0 auto;
+}
+
+.sobre-img {
+  border-radius: 4px;
+  box-shadow: 20px 20px 0px var(--color-accent);
+  transition: var(--transition-smooth);
+  max-width: 450px;
+  width: 100%;
+}
+
+.sobre-img-wrapper:hover .sobre-img {
+  transform: translate(5px, 5px);
+  box-shadow: 10px 10px 0px var(--color-accent);
+}
+
+.sobre-content h3 {
+  font-size: 1.8rem;
+  color: var(--color-primary);
+  margin-bottom: 20px;
+}
+
+.sobre-text {
+  font-size: 1rem;
+  color: var(--color-text-muted);
+  margin-bottom: 30px;
+  text-align: justify;
+}
+
+/* Bloco da OAB em destaque */
+.oab-badge {
+  display: inline-block;
+  background-color: var(--color-primary);
+  color: var(--color-accent);
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-family: var(--font-title);
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-left: 4px solid var(--color-accent);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* ==========================================================================
+   SEÇÃO DIFERENCIAIS
+   ========================================================================== */
+
+.diferenciais-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+}
+
+.diferencial-item {
+  text-align: center;
+  padding: 30px 20px;
+}
+
+.diferencial-icon {
+  width: 70px;
+  height: 70px;
+  background-color: var(--color-primary-light);
+  color: var(--color-accent);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 25px auto;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.diferencial-icon svg {
+  width: 32px;
+  height: 32px;
+  fill: currentColor;
+}
+
+.diferencial-item h3 {
+  font-size: 1.15rem;
+  color: var(--color-text-light);
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.diferencial-item p {
+  font-size: 0.9rem;
+  color: #B2C0CC;
+}
+
+/* ==========================================================================
+   SEÇÃO CONTATO E LOCALIZAÇÃO
+   ========================================================================== */
+
+.contato-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 50px;
+}
+
+.contato-info h3 {
+  font-size: 1.8rem;
+  color: var(--color-primary);
+  margin-bottom: 25px;
+}
+
+.contato-detalhes {
+  margin-bottom: 40px;
+}
+
+/* Linha individual de informação de contato */
+.contato-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 25px;
+}
+
+.contato-icon {
+  color: var(--color-accent);
+  margin-right: 15px;
+  margin-top: 3px;
+}
+
+.contato-icon svg {
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
+}
+
+.contato-texto h4 {
+  font-size: 0.95rem;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+
+.contato-texto p, .contato-texto a {
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+}
+
+.contato-texto a:hover {
+  color: var(--color-accent);
+}
+
+/* Redes Sociais no Bloco de Contato */
+.social-links {
+  display: flex;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.social-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  background-color: var(--color-primary);
+  color: var(--color-accent);
+  border-radius: 4px;
+  transition: var(--transition-smooth);
+}
+
+.social-btn:hover {
+  background-color: var(--color-accent);
+  color: var(--color-primary);
+  transform: translateY(-3px);
+}
+
+.social-btn svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+/* Iframe do Mapa responsivo */
+.mapa-container {
+  width: 100%;
+  height: 450px;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: var(--shadow-premium);
+  border: 1px solid rgba(197, 168, 128, 0.2);
+}
+
+.mapa-container iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* ==========================================================================
+   RODAPÉ (FOOTER)
+   ========================================================================== */
+
+.footer {
+  background-color: var(--color-primary);
+  color: #B2C0CC;
+  padding: 60px 0 30px 0;
+  border-top: 2px solid var(--color-accent);
+}
+
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 40px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.footer-logo img {
+  height: 40px;
+  width: auto;
+}
+
+.footer-oab {
+  font-family: var(--font-title);
+  color: var(--color-accent);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.footer-bottom {
+  text-align: center;
+}
+
+.footer-copyright {
+  font-size: 0.85rem;
+  margin-bottom: 15px;
+}
+
+/* Disclaimer legal exigido na base */
+.footer-disclaimer {
+  font-size: 0.75rem;
+  color: #6C7A87;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+/* Bloco de créditos de desenvolvimento da Mega Ads no Rodapé */
+.footer-developer {
+  margin-top: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 0.75rem;
+  color: #6C7A87;
+}
+
+/* Estilo do logotipo da Mega Ads nos créditos */
+.footer-developer img {
+  height: 20px;
+  width: auto;
+  opacity: 0.6;
+  transition: var(--transition-smooth);
+}
+
+/* Efeito hover para destacar sutilmente o logotipo da Mega Ads */
+.footer-developer img:hover {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   BOTÃO FLUTUANTE DO WHATSAPP
+   ========================================================================== */
+
+.whatsapp-float {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background-color: #25D366; /* Cor verde padrão oficial do WhatsApp */
+  color: #FFFFFF;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+  z-index: 999;
+  transition: var(--transition-smooth);
+}
+
+.whatsapp-float:hover {
+  transform: scale(1.1) translateY(-3px);
+  background-color: #20BA5A;
+}
+
+/* Alinhamento geométrico perfeito do SVG do WhatsApp flutuante */
+.whatsapp-float svg {
+  width: 32px;
+  height: 32px;
+  fill: currentColor;
+  flex-shrink: 0;          /* Impede que o ícone do botão flutuante perca a forma redonda */
+  display: block;          /* Evita espaçamentos herdados de elementos textuais */
+}
+
+/* Animação sutil de pulso para chamar a atenção no botão de WhatsApp */
+.whatsapp-float::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: #25D366;
+  opacity: 0.3;
+  z-index: -1;
+  animation: pulse-whatsapp 2s infinite;
+}
+
+@keyframes pulse-whatsapp {
+  0% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+}
+
+/* ==========================================================================
+   MEDIA QUERIES — RESPONSIVIDADE PARA DISPOSITIVOS MÓVEIS
+   ========================================================================== */
+
+/* Telas de Tablets e Celulares Médios/Grandes */
+@media (max-width: 992px) {
+  .section {
+    padding: 70px 0;
+  }
+
+  .section-header {
+    margin-bottom: 40px;
+  }
+
+  /* Cabeçalho responsivo */
+  .hamburger {
+    display: block; /* Ativa botão hambúrguer */
+  }
+
+  /* Redução da altura do logotipo horizontal para não quebrar a barra no mobile */
+  .logo img {
+    height: 35px;
+  }
+  
+  /* Mantém o logotipo menor mesmo com scroll no mobile */
+  .header.scrolled .logo img {
+    height: 32px;
+  }
+
+  /* Mudança para menu mobile retrátil lateral */
+  .nav-menu {
+    position: fixed;
+    top: 0;
+    right: -100%; /* Inicia escondido à direita */
+    width: 280px;
+    height: 100vh;
+    background-color: var(--color-primary);
+    flex-direction: column;
+    padding: 100px 30px;
+    align-items: flex-start;
+    transition: var(--transition-smooth);
+    box-shadow: -5px 0 25px rgba(0,0,0,0.25);
+    border-left: 1px solid rgba(197, 168, 128, 0.2);
+  }
+
+  /* Classe ativada via JavaScript ao clicar no hambúrguer */
+  .nav-menu.active {
+    right: 0;
+  }
+
+  .nav-item {
+    margin: 15px 0;
+  }
+
+  .nav-cta {
+    margin-left: 0;
+    margin-top: 30px;
+    width: 100%;
+  }
+
+  .nav-cta .btn {
+    width: 100%;
+  }
+
+  /* Ajustes do Hamburger animado */
+  .hamburger.active span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+  .hamburger.active span:nth-child(2) {
+    opacity: 0;
+  }
+  .hamburger.active span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+
+  /* Hero Section */
+  .hero h1 {
+    font-size: 2.3rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.1rem;
+  }
+
+  /* Grid e Flex de Seções */
+  .sobre-container {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .sobre-img-wrapper {
+    order: -1; /* Foto por cima do texto institucional no mobile */
+  }
+
+  .diferenciais-grid {
+    grid-template-columns: 1fr; /* Diferenciais em coluna única */
+    gap: 20px;
+  }
+
+  .contato-wrapper {
+    grid-template-columns: 1fr; /* Contato e mapa em coluna única */
+    gap: 40px;
+  }
+  
+  .mapa-container {
+    height: 350px;
+  }
+}
+
+/* Telas Pequenas (Celulares e Smartphones) */
+@media (max-width: 576px) {
+  .section-header h2 {
+    font-size: 1.7rem;
+  }
+
+  .hero h1 {
+    font-size: 1.8rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+    margin-bottom: 30px;
+  }
+
+  .hero-cta {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .hero-cta .btn {
+    width: 100%;
+  }
+
+  .btn {
+    padding: 12px 24px;
+    font-size: 0.85rem;
+  }
+
+  .sobre-img {
+    box-shadow: 10px 10px 0px var(--color-accent);
+  }
+
+  .sobre-img-wrapper:hover .sobre-img {
+    transform: translate(3px, 3px);
+    box-shadow: 7px 7px 0px var(--color-accent);
+  }
+
+  .especialidades-grid {
+    grid-template-columns: 1fr; /* Cards ocupam largura inteira */
+  }
+
+  .footer-top {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .whatsapp-float {
+    width: 50px;
+    height: 50px;
+    bottom: 20px;
+    right: 20px;
+  }
+
+  .whatsapp-float svg {
+    width: 26px;
+    height: 26px;
+  }
+}
