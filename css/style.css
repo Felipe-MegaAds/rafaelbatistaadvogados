@@ -297,6 +297,38 @@ img {
   margin-bottom: 20px;
 }
 
+/* Selo de qualificação de tempo no topo do Hero (Mais de 3 meses / 90 dias) */
+.hero-filter-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(197, 168, 128, 0.12);
+  border: 1px solid rgba(197, 168, 128, 0.4);
+  color: var(--color-accent);
+  padding: 8px 22px;
+  border-radius: 50px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  margin-bottom: 22px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  animation: fadeInDown 0.8s ease-out;
+}
+
+/* Ícone de verificação dentro do selo */
+.hero-filter-badge svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+  flex-shrink: 0;
+}
+
+/* Destaque em branco para as palavras de maior peso no selo */
+.hero-filter-badge strong {
+  color: #FFFFFF;
+  font-weight: 700;
+}
+
 .hero h1 {
   font-size: 3.2rem;
   color: var(--color-text-light);
@@ -311,9 +343,10 @@ img {
 .hero-subtitle {
   font-size: 1.25rem;
   color: #C0C8CF;
-  max-width: 700px;
+  max-width: 750px;
   margin: 0 auto 40px auto;
   font-weight: 300;
+  line-height: 1.6;
 }
 
 .hero-cta {
@@ -330,6 +363,200 @@ img {
   font-size: 0.85rem;
   color: var(--color-accent);
   font-style: italic;
+}
+
+/* ==========================================================================
+   SEÇÃO DE QUALIFICAÇÃO / CRITÉRIO DE ATENDIMENTO (+3 MESES DE TRABALHO)
+   Destaca por que o escritório foca em quem superou o período de 90 dias
+   ========================================================================== */
+
+.section-qualificacao {
+  background-color: var(--color-bg-light);
+  padding: 80px 0;
+}
+
+/* Caixa principal com design escuro elegante e borda dourada */
+.qualificacao-box {
+  background: linear-gradient(145deg, #0A141D 0%, #15222E 100%);
+  border: 1px solid rgba(197, 168, 128, 0.35);
+  border-radius: 8px;
+  padding: 60px 45px;
+  text-align: center;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Efeito de iluminação sutil no topo do card */
+.qualificacao-box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
+}
+
+/* Cabeçalho do selo dentro do box */
+.qualificacao-badge-header {
+  margin-bottom: 18px;
+}
+
+/* Selo arredondado dourado */
+.badge-destaque {
+  display: inline-block;
+  background-color: rgba(197, 168, 128, 0.15);
+  color: var(--color-accent);
+  border: 1px solid var(--color-accent);
+  padding: 6px 18px;
+  border-radius: 50px;
+  font-family: var(--font-title);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+/* Título de chamada da qualificação */
+.qualificacao-titulo {
+  color: #FFFFFF;
+  font-size: 2.1rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+  line-height: 1.25;
+}
+
+/* Subtítulo explicativo com o critério dos 90 dias */
+.qualificacao-subtitulo {
+  color: #C0C8CF;
+  font-size: 1.05rem;
+  max-width: 820px;
+  margin: 0 auto 40px auto;
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+.qualificacao-subtitulo strong {
+  color: #FFFFFF;
+  font-weight: 600;
+}
+
+/* Grade de 3 colunas para os pilares dos 3 meses */
+.qualificacao-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  margin-bottom: 35px;
+  text-align: left;
+}
+
+/* Card individual da qualificação */
+.qualificacao-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(197, 168, 128, 0.2);
+  border-radius: 6px;
+  padding: 30px 24px;
+  transition: var(--transition-smooth);
+}
+
+.qualificacao-card:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--color-accent);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Ícone de cada card */
+.qualificacao-card-icon {
+  color: var(--color-accent);
+  margin-bottom: 18px;
+}
+
+.qualificacao-card-icon svg {
+  width: 38px;
+  height: 38px;
+  fill: currentColor;
+}
+
+/* Título de cada card */
+.qualificacao-card h3 {
+  color: #FFFFFF;
+  font-size: 1.15rem;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+/* Texto de explicação de cada card */
+.qualificacao-card p {
+  color: #B2C0CC;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+/* Bloco de alerta educativo para menos de 90 dias */
+.qualificacao-alerta {
+  background: rgba(197, 168, 128, 0.08);
+  border-left: 4px solid var(--color-accent);
+  border-radius: 4px;
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  max-width: 900px;
+  margin: 30px auto 40px auto;
+  text-align: left;
+}
+
+/* Ícone de alerta */
+.alerta-icon {
+  color: var(--color-accent);
+  flex-shrink: 0;
+}
+
+.alerta-icon svg {
+  width: 26px;
+  height: 26px;
+  fill: currentColor;
+}
+
+/* Texto do alerta */
+.qualificacao-alerta p {
+  color: #D2DCE6;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.qualificacao-alerta strong {
+  color: #FFFFFF;
+}
+
+/* Container do CTA de qualificação */
+.qualificacao-cta {
+  display: flex;
+  justify-content: center;
+}
+
+/* Nota de rodapé da seção de especialidades */
+.especialidades-requisito-nota {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  font-style: italic;
+  margin-bottom: 20px;
+}
+
+/* Animação suave para o badge */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ==========================================================================
@@ -845,6 +1072,20 @@ img {
   .mapa-container {
     height: 350px;
   }
+
+  /* Responsividade da Seção de Qualificação para Tablets */
+  .qualificacao-box {
+    padding: 45px 30px;
+  }
+
+  .qualificacao-titulo {
+    font-size: 1.8rem;
+  }
+
+  .qualificacao-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
 }
 
 /* Telas Pequenas (Celulares e Smartphones) */
@@ -904,5 +1145,45 @@ img {
   .whatsapp-float svg {
     width: 26px;
     height: 26px;
+  }
+
+  /* Ajustes responsivos para celulares pequenos */
+  .hero-filter-badge {
+    font-size: 0.76rem;
+    padding: 6px 14px;
+    gap: 6px;
+    margin-bottom: 18px;
+    line-height: 1.3;
+  }
+
+  .hero-filter-badge svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .qualificacao-box {
+    padding: 35px 20px;
+  }
+
+  .qualificacao-titulo {
+    font-size: 1.45rem;
+  }
+
+  .qualificacao-subtitulo {
+    font-size: 0.95rem;
+    margin-bottom: 25px;
+  }
+
+  .qualificacao-alerta {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px;
+    gap: 10px;
+  }
+
+  .qualificacao-cta .btn {
+    width: 100%;
+    font-size: 0.8rem;
+    padding: 12px 16px;
   }
 }
